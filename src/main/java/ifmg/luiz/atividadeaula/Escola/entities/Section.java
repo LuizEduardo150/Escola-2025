@@ -1,23 +1,21 @@
 package ifmg.luiz.atividadeaula.Escola.entities;
 
 
-import ifmg.luiz.atividadeaula.Escola.constants.ResourceTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_resource")
+@Table(name = "tb_section")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Resource {
+public class Section {
 
     @EqualsAndHashCode.Include
     @Id
@@ -28,17 +26,17 @@ public class Resource {
     private Integer position;
     private String imgUri;
 
-    @OneToMany(mappedBy = "resource")
-    private List<Section> sections = new ArrayList<>();
-
-
-    @Enumerated(EnumType.STRING)//ordinal
-    private ResourceTypeEnum resourceType;
+    @ManyToOne
+    @JoinColumn(name = "resource_id")
+    private Resource resource;
 
     @ManyToOne
-    @JoinColumn(name="offer_id")
-    private Offer offer;
+    @JoinColumn(name="prerequisite_id")
+    private Section prerequisite;
 
+
+    @OneToMany(mappedBy = "section")
+    private List<Lesson> lessons;
 
 
 
