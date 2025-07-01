@@ -9,7 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -52,6 +54,10 @@ public class Enrollment {
     public void setUser(Offer offer){
         id.setOffer(offer);
     }
+
+    @OneToMany(mappedBy = "enrollment")
+    private List<Deliver> deliveries = new ArrayList<>();
+
 
 
 }
